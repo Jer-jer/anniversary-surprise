@@ -1,7 +1,7 @@
 // Secret Code Configuration
 const SECRET_CODE = "kayden";
 
-const ANNIVERSARY_DATE = new Date(2026, 4, 9); // May 9, 2026
+const ANNIVERSARY_DATE = new Date(2026, 3, 9); // May 9, 2026
 
 // Music Library - Replace with your actual song URLs
 const musicLibrary = [
@@ -49,6 +49,7 @@ let audioContext = null;
 let noClickCount = 0;
 const maxClicksBeforeMove = 2;
 let audioEnabled = false;
+let kittenController = null;
 
 // Check Secret Code
 function checkCode() {
@@ -140,6 +141,10 @@ function showSection(sectionId) {
 
 	// Show selected section
 	document.getElementById(sectionId).classList.add("active");
+
+	if (sectionId === "gallery" && typeof renderGallery === "function") {
+		renderGallery();
+	}
 
 	// Update nav links
 	document.querySelectorAll(".nav-link").forEach((link) => {

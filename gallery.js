@@ -261,47 +261,121 @@ const galleryLibrary = [
 	},
 ];
 
+let galleryHasRendered = false;
+let galleryImageObserver = null;
+
+function getOptimizedGalleryImagePath(imagePath) {
+	if (!imagePath || !imagePath.startsWith("assets/images/")) {
+		return imagePath;
+	}
+
+	const fileName = imagePath.split("/").pop();
+	return `assets/images/gallery/${fileName}`;
+}
+
+function revealGalleryImage(img) {
+	const placeholder = img.closest(".gallery-placeholder");
+	if (!img.dataset.src) return;
+
+	img.src = img.dataset.src;
+	img.removeAttribute("data-src");
+
+	const markLoaded = () => {
+		img.classList.add("loaded");
+		placeholder?.classList.add("loaded");
+	};
+
+	if (img.complete) {
+		markLoaded();
+		return;
+	}
+
+	img.addEventListener("load", markLoaded, { once: true });
+	img.addEventListener(
+		"error",
+		() => {
+			placeholder?.classList.add("loaded");
+		},
+		{ once: true },
+	);
+}
+
+function setupGalleryImageObserver(images) {
+	if (!("IntersectionObserver" in window)) {
+		images.forEach(revealGalleryImage);
+		return;
+	}
+
+	galleryImageObserver?.disconnect();
+	galleryImageObserver = new IntersectionObserver(
+		(entries, observer) => {
+			entries.forEach((entry) => {
+				if (!entry.isIntersecting) return;
+
+				revealGalleryImage(entry.target);
+				observer.unobserve(entry.target);
+			});
+		},
+		{
+			rootMargin: "250px 0px",
+			threshold: 0.01,
+		},
+	);
+
+	images.forEach((img) => galleryImageObserver.observe(img));
+}
+
 // Render Gallery Function
 function renderGallery() {
 	const grid = document.getElementById("galleryGrid");
-	if (!grid) return; // Safety check: ensure element exists
+	if (!grid || galleryHasRendered) return;
 
-	grid.innerHTML = ""; // Clear existing content
+	grid.innerHTML = "";
+	const lazyImages = [];
 
 	galleryLibrary.forEach((item) => {
 		const card = document.createElement("div");
 		card.className = "gallery-item";
 
-		// Create Placeholder/Content Container
 		const placeholder = document.createElement("div");
 		placeholder.className = "gallery-placeholder";
 
-		// Handle Image vs. Placeholder Logic
 		if (item.image) {
-			// If image URL exists, create img tag
 			const img = document.createElement("img");
-			img.src = item.image;
+			img.dataset.src = getOptimizedGalleryImagePath(item.image);
+			img.dataset.originalSrc = item.image;
 			img.alt = item.caption;
-			img.style.width = "100%";
-			img.style.height = "100%";
-			img.style.objectFit = "cover";
+			img.className = "gallery-image";
+			img.loading = "lazy";
+			img.decoding = "async";
+			img.fetchPriority = "low";
+			img.addEventListener("error", () => {
+				if (img.src.endsWith(img.dataset.originalSrc)) {
+					placeholder.classList.add("loaded");
+					return;
+				}
+
+				img.src = img.dataset.originalSrc;
+			});
 			placeholder.appendChild(img);
+			lazyImages.push(img);
 		} else {
-			// Fallback to existing emoji/gradient style
 			const icon = document.createElement("span");
 			icon.style.fontSize = "2.5rem";
 			icon.textContent = item.icon;
 			placeholder.appendChild(icon);
+			placeholder.classList.add("loaded");
 		}
 
-		// Create Caption (Using textContent for XSS safety)
 		const caption = document.createElement("div");
 		caption.className = "gallery-caption";
-		caption.textContent = item.caption; // Safe insertion
+		caption.textContent = item.caption;
 
-		// Assemble
 		card.appendChild(placeholder);
 		card.appendChild(caption);
 		grid.appendChild(card);
 	});
+
+	setupGalleryImageObserver(lazyImages);
+	galleryHasRendered = true;
 }
