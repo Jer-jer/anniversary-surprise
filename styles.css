@@ -1358,11 +1358,3 @@ body {
 		-webkit-appearance: none;
 	}
 }
-
-@media (prefers-reduced-motion: reduce) {
-	.kitten-companion,
-	.kitten-companion * {
-		animation: none !important;
-		transition: none !important;
-	}
-}

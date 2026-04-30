@@ -75,7 +75,7 @@ const galleryLibrary = [
 		caption: "Igat 80%, Spanish 20%, Learnings forgetten",
 		image: "assets/images/spanish.jpg",
 		icon: "🐂",
-		date: "2025-06-21", // Forgot the date
+		date: "2025-05-31", // Forgot the date
 	},
 	{
 		id: 12,
@@ -124,63 +124,49 @@ const galleryLibrary = [
 		caption: "Ni kaon ug utok kay nahutdan ug utok",
 		image: "assets/images/colonade.jpg",
 		icon: "🧠",
-		date: "2025-06-14", // forgot the date
+		date: "2025-09-14", // forgot the date
 	},
 	{
 		id: 17,
 		caption: "Nag final destination unya g urom after huhu",
 		image: "assets/images/finaldestination.jpg",
 		icon: "🧠",
-		date: "2025-06-14", // forgot the date
+		date: "2025-05-23",
 	},
 	{
 		id: 18,
 		caption: "Supermaaannn 🦸🏻",
 		image: "assets/images/superman.jpg",
 		icon: "🦸🏻",
-		date: "2025-06-14", // forgot the date
+		date: "2025-07-24",
 	},
 	{
 		id: 19,
 		caption: "Versace Date",
 		image: "assets/images/versace6.jpg",
 		icon: "☕",
-		date: "2025-11-14", // forgot the date
+		date: "2025-11-15",
 	},
 	{
 		id: 20,
 		caption: "Sweet kaayo ta babeee, may gani way hulmigas",
 		image: "assets/images/versace7.jpg",
 		icon: "🐜",
-		date: "2025-11-14", // forgot the date
+		date: "2025-11-15",
 	},
 	{
 		id: 21,
 		caption: "Gamay nalang mu duol nang hulmigass",
 		image: "assets/images/versace8.jpg",
 		icon: "🐜",
-		date: "2025-11-14", // forgot the date
-	},
-	{
-		id: 22,
-		caption: "Manaka na jd",
-		image: "assets/images/versace7.jpg",
-		icon: "🐜",
-		date: "2025-11-14", // forgot the date
-	},
-	{
-		id: 22,
-		caption: "Hairflip candidd",
-		image: "assets/images/versace7.jpg",
-		icon: "☕",
-		date: "2025-11-14", // forgot the date
+		date: "2025-11-15",
 	},
 	{
 		id: 22,
 		caption: "Japan neon vibes",
 		image: "assets/images/versace5.jpg",
 		icon: "☕",
-		date: "2025-11-14", // forgot the date
+		date: "2025-11-15",
 	},
 	{
 		id: 23,
@@ -194,21 +180,21 @@ const galleryLibrary = [
 		caption: "Gwapa kayka sa imong hairdo babee",
 		image: "assets/images/hairdo.jpg",
 		icon: "👩🏼‍🦰",
-		date: "2025-11-21", // forgot the date
+		date: "2025-08-31",
 	},
 	{
 		id: 25,
 		caption: "Another oneee 😍😍",
 		image: "assets/images/hairdo2.jpg",
 		icon: "👩🏼‍🦰",
-		date: "2025-11-21", // forgot the date
+		date: "2025-08-31",
 	},
 	{
 		id: 26,
 		caption: "Wala na lanay nako 🫠",
 		image: "assets/images/hairdo3.jpg",
 		icon: "👩🏼‍🦰",
-		date: "2025-11-21", // forgot the date
+		date: "2025-08-31", // forgot the date
 	},
 	{
 		id: 27,
@@ -229,35 +215,35 @@ const galleryLibrary = [
 		caption: "Gi-uwanan sa Simala",
 		image: "assets/images/aloguinsan.jpg",
 		icon: "🛐",
-		date: "2026-02-14", // forgot the date
+		date: "2026-10-27",
 	},
 	{
 		id: 30,
 		caption: "So happy to be able to visit your hometown with you babe 🥰",
 		image: "assets/images/aloguinsan4.jpg",
 		icon: "🏖️",
-		date: "2026-02-14", // forgot the date
+		date: "2026-10-27",
 	},
 	{
 		id: 31,
 		caption: "OTW TO BANTAYANNN",
 		image: "assets/images/bantayan.jpg",
 		icon: "🏝️",
-		date: "2026-02-13", // forgot the date
+		date: "2026-02-13",
 	},
 	{
 		id: 32,
 		caption: "Second getaway together 🏝️",
 		image: "assets/images/bantayan7.jpg",
 		icon: "🏝️",
-		date: "2026-02-13", // forgot the date
+		date: "2026-02-13",
 	},
 	{
 		id: 33,
 		caption: "Gwapa kayka diri babe I swearrr, nice kaayo pagkapicture nako hehe",
 		image: "assets/images/bantayan3.jpg",
 		icon: "🏝️",
-		date: "2026-02-13", // forgot the date
+		date: "2026-02-13",
 	},
 ];
 
