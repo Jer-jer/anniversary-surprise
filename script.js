@@ -49,6 +49,7 @@ let audioContext = null;
 let noClickCount = 0;
 const maxClicksBeforeMove = 2;
 let audioEnabled = false;
+let kittenController = null;
 
 // Check Secret Code
 function checkCode() {
@@ -140,6 +141,10 @@ function showSection(sectionId) {
 
 	// Show selected section
 	document.getElementById(sectionId).classList.add("active");
+
+	if (sectionId === "gallery" && typeof renderGallery === "function") {
+		renderGallery();
+	}
 
 	// Update nav links
 	document.querySelectorAll(".nav-link").forEach((link) => {

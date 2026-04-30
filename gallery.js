@@ -75,7 +75,7 @@ const galleryLibrary = [
 		caption: "Igat 80%, Spanish 20%, Learnings forgetten",
 		image: "assets/images/spanish.jpg",
 		icon: "🐂",
-		date: "2025-06-21", // Forgot the date
+		date: "2025-05-31", // Forgot the date
 	},
 	{
 		id: 12,
@@ -124,63 +124,49 @@ const galleryLibrary = [
 		caption: "Ni kaon ug utok kay nahutdan ug utok",
 		image: "assets/images/colonade.jpg",
 		icon: "🧠",
-		date: "2025-06-14", // forgot the date
+		date: "2025-09-14", // forgot the date
 	},
 	{
 		id: 17,
 		caption: "Nag final destination unya g urom after huhu",
 		image: "assets/images/finaldestination.jpg",
 		icon: "🧠",
-		date: "2025-06-14", // forgot the date
+		date: "2025-05-23",
 	},
 	{
 		id: 18,
 		caption: "Supermaaannn 🦸🏻",
 		image: "assets/images/superman.jpg",
 		icon: "🦸🏻",
-		date: "2025-06-14", // forgot the date
+		date: "2025-07-24",
 	},
 	{
 		id: 19,
 		caption: "Versace Date",
 		image: "assets/images/versace6.jpg",
 		icon: "☕",
-		date: "2025-11-14", // forgot the date
+		date: "2025-11-15",
 	},
 	{
 		id: 20,
 		caption: "Sweet kaayo ta babeee, may gani way hulmigas",
 		image: "assets/images/versace7.jpg",
 		icon: "🐜",
-		date: "2025-11-14", // forgot the date
+		date: "2025-11-15",
 	},
 	{
 		id: 21,
 		caption: "Gamay nalang mu duol nang hulmigass",
 		image: "assets/images/versace8.jpg",
 		icon: "🐜",
-		date: "2025-11-14", // forgot the date
-	},
-	{
-		id: 22,
-		caption: "Manaka na jd",
-		image: "assets/images/versace7.jpg",
-		icon: "🐜",
-		date: "2025-11-14", // forgot the date
-	},
-	{
-		id: 22,
-		caption: "Hairflip candidd",
-		image: "assets/images/versace7.jpg",
-		icon: "☕",
-		date: "2025-11-14", // forgot the date
+		date: "2025-11-15",
 	},
 	{
 		id: 22,
 		caption: "Japan neon vibes",
 		image: "assets/images/versace5.jpg",
 		icon: "☕",
-		date: "2025-11-14", // forgot the date
+		date: "2025-11-15",
 	},
 	{
 		id: 23,
@@ -194,21 +180,21 @@ const galleryLibrary = [
 		caption: "Gwapa kayka sa imong hairdo babee",
 		image: "assets/images/hairdo.jpg",
 		icon: "👩🏼‍🦰",
-		date: "2025-11-21", // forgot the date
+		date: "2025-08-31",
 	},
 	{
 		id: 25,
 		caption: "Another oneee 😍😍",
 		image: "assets/images/hairdo2.jpg",
 		icon: "👩🏼‍🦰",
-		date: "2025-11-21", // forgot the date
+		date: "2025-08-31",
 	},
 	{
 		id: 26,
 		caption: "Wala na lanay nako 🫠",
 		image: "assets/images/hairdo3.jpg",
 		icon: "👩🏼‍🦰",
-		date: "2025-11-21", // forgot the date
+		date: "2025-08-31", // forgot the date
 	},
 	{
 		id: 27,
@@ -229,79 +215,153 @@ const galleryLibrary = [
 		caption: "Gi-uwanan sa Simala",
 		image: "assets/images/aloguinsan.jpg",
 		icon: "🛐",
-		date: "2026-02-14", // forgot the date
+		date: "2026-10-27",
 	},
 	{
 		id: 30,
 		caption: "So happy to be able to visit your hometown with you babe 🥰",
 		image: "assets/images/aloguinsan4.jpg",
 		icon: "🏖️",
-		date: "2026-02-14", // forgot the date
+		date: "2026-10-27",
 	},
 	{
 		id: 31,
 		caption: "OTW TO BANTAYANNN",
 		image: "assets/images/bantayan.jpg",
 		icon: "🏝️",
-		date: "2026-02-13", // forgot the date
+		date: "2026-02-13",
 	},
 	{
 		id: 32,
 		caption: "Second getaway together 🏝️",
 		image: "assets/images/bantayan7.jpg",
 		icon: "🏝️",
-		date: "2026-02-13", // forgot the date
+		date: "2026-02-13",
 	},
 	{
 		id: 33,
 		caption: "Gwapa kayka diri babe I swearrr, nice kaayo pagkapicture nako hehe",
 		image: "assets/images/bantayan3.jpg",
 		icon: "🏝️",
-		date: "2026-02-13", // forgot the date
+		date: "2026-02-13",
 	},
 ];
+
+let galleryHasRendered = false;
+let galleryImageObserver = null;
+
+function getOptimizedGalleryImagePath(imagePath) {
+	if (!imagePath || !imagePath.startsWith("assets/images/")) {
+		return imagePath;
+	}
+
+	const fileName = imagePath.split("/").pop();
+	return `assets/images/gallery/${fileName}`;
+}
+
+function revealGalleryImage(img) {
+	const placeholder = img.closest(".gallery-placeholder");
+	if (!img.dataset.src) return;
+
+	img.src = img.dataset.src;
+	img.removeAttribute("data-src");
+
+	const markLoaded = () => {
+		img.classList.add("loaded");
+		placeholder?.classList.add("loaded");
+	};
+
+	if (img.complete) {
+		markLoaded();
+		return;
+	}
+
+	img.addEventListener("load", markLoaded, { once: true });
+	img.addEventListener(
+		"error",
+		() => {
+			placeholder?.classList.add("loaded");
+		},
+		{ once: true },
+	);
+}
+
+function setupGalleryImageObserver(images) {
+	if (!("IntersectionObserver" in window)) {
+		images.forEach(revealGalleryImage);
+		return;
+	}
+
+	galleryImageObserver?.disconnect();
+	galleryImageObserver = new IntersectionObserver(
+		(entries, observer) => {
+			entries.forEach((entry) => {
+				if (!entry.isIntersecting) return;
+
+				revealGalleryImage(entry.target);
+				observer.unobserve(entry.target);
+			});
+		},
+		{
+			rootMargin: "250px 0px",
+			threshold: 0.01,
+		},
+	);
+
+	images.forEach((img) => galleryImageObserver.observe(img));
+}
 
 // Render Gallery Function
 function renderGallery() {
 	const grid = document.getElementById("galleryGrid");
-	if (!grid) return; // Safety check: ensure element exists
+	if (!grid || galleryHasRendered) return;
 
-	grid.innerHTML = ""; // Clear existing content
+	grid.innerHTML = "";
+	const lazyImages = [];
 
 	galleryLibrary.forEach((item) => {
 		const card = document.createElement("div");
 		card.className = "gallery-item";
 
-		// Create Placeholder/Content Container
 		const placeholder = document.createElement("div");
 		placeholder.className = "gallery-placeholder";
 
-		// Handle Image vs. Placeholder Logic
 		if (item.image) {
-			// If image URL exists, create img tag
 			const img = document.createElement("img");
-			img.src = item.image;
+			img.dataset.src = getOptimizedGalleryImagePath(item.image);
+			img.dataset.originalSrc = item.image;
 			img.alt = item.caption;
-			img.style.width = "100%";
-			img.style.height = "100%";
-			img.style.objectFit = "cover";
+			img.className = "gallery-image";
+			img.loading = "lazy";
+			img.decoding = "async";
+			img.fetchPriority = "low";
+			img.addEventListener("error", () => {
+				if (img.src.endsWith(img.dataset.originalSrc)) {
+					placeholder.classList.add("loaded");
+					return;
+				}
+
+				img.src = img.dataset.originalSrc;
+			});
 			placeholder.appendChild(img);
+			lazyImages.push(img);
 		} else {
-			// Fallback to existing emoji/gradient style
 			const icon = document.createElement("span");
 			icon.style.fontSize = "2.5rem";
 			icon.textContent = item.icon;
 			placeholder.appendChild(icon);
+			placeholder.classList.add("loaded");
 		}
 
-		// Create Caption (Using textContent for XSS safety)
 		const caption = document.createElement("div");
 		caption.className = "gallery-caption";
-		caption.textContent = item.caption; // Safe insertion
+		caption.textContent = item.caption;
 
-		// Assemble
 		card.appendChild(placeholder);
 		card.appendChild(caption);
 		grid.appendChild(card);
 	});
+
+	setupGalleryImageObserver(lazyImages);
+	galleryHasRendered = true;
 }

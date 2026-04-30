@@ -60,11 +60,17 @@ let notes = [
 		content: "Thank you for being so patient with me, I am not the easiest person to deal with but you always understand and support me. I am truly lucky to have you as my partner 🥰",
 		date: "2026-03-23",
 	},
-   {
+	{
 		id: 11,
 		category: "gratitude",
 		content: "Thank you for motivating me, trying to push me to become better. You never give up on me, I don't want to disappoint that effort, I shall be thinner before May 8",
 		date: "2026-03-23",
+	},
+	{
+		id: 12,
+		category: "future",
+		content: "My only wish is to be loved by you forever, I hope you never stop loving me",
+		date: "2026-04-30",
 	},
 ];
 
